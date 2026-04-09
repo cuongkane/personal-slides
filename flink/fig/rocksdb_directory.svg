@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" font-family="'SF Mono', 'Fira Code', 'Cascadia Code', monospace">
+  <defs>
+    <linearGradient id="rdBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f9fa"/>
+      <stop offset="100%" style="stop-color:#f0f2f5"/>
+    </linearGradient>
+    <filter id="rdShadow">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="720" height="340" rx="12" fill="none"/>
+
+  <!-- Terminal-style header -->
+  <rect x="15" y="12" width="690" height="28" rx="8" fill="#2d2d2d"/>
+  <circle cx="32" cy="26" r="5" fill="#cc2244"/>
+  <circle cx="48" cy="26" r="5" fill="#cc7700"/>
+  <circle cx="64" cy="26" r="5" fill="#228833"/>
+  <text x="360" y="31" text-anchor="middle" fill="#888888" font-size="10" font-family="'Segoe UI', system-ui, sans-serif">RocksDB Directory Structure</text>
+
+  <!-- Directory path -->
+  <text x="30" y="68" fill="#0077bb" font-size="12" font-weight="600">/tmp/flink/job_{jobId}_op_dedup_uuid_{random}/db/</text>
+
+  <!-- Tree structure -->
+  <g font-size="12.5">
+    <!-- 000001.sst -->
+    <text x="30" y="100" fill="#888888">├──</text>
+    <text x="72" y="100" fill="#228833">000001.sst</text>
+    <text x="200" y="100" fill="#666666" font-size="10">← Level 1 SST, ~64 MB, sorted, immutable</text>
+
+    <!-- 000002.sst -->
+    <text x="30" y="130" fill="#888888">├──</text>
+    <text x="72" y="130" fill="#228833">000002.sst</text>
+    <text x="200" y="130" fill="#666666" font-size="10">← Level 1 SST</text>
+
+    <!-- 000003.sst -->
+    <text x="30" y="160" fill="#888888">├──</text>
+    <text x="72" y="160" fill="#228833">000003.sst</text>
+    <text x="200" y="160" fill="#666666" font-size="10">← Level 2 SST (produced by compaction)</text>
+
+    <!-- 000004.sst -->
+    <text x="30" y="190" fill="#888888">├──</text>
+    <text x="72" y="190" fill="#cc7700">000004.sst</text>
+    <text x="200" y="190" fill="#666666" font-size="10">← Level 0 SST (recently flushed from memtable)</text>
+
+    <!-- MANIFEST -->
+    <text x="30" y="220" fill="#888888">├──</text>
+    <text x="72" y="220" fill="#0077bb">MANIFEST-000005</text>
+    <text x="250" y="220" fill="#666666" font-size="10">← Metadata: which SSTs exist at which level</text>
+
+    <!-- CURRENT -->
+    <text x="30" y="250" fill="#888888">├──</text>
+    <text x="72" y="250" fill="#0077bb">CURRENT</text>
+    <text x="250" y="250" fill="#666666" font-size="10">← Points to the current MANIFEST</text>
+
+    <!-- OPTIONS -->
+    <text x="30" y="280" fill="#888888">└──</text>
+    <text x="72" y="280" fill="#cc2244">OPTIONS-000006</text>
+    <text x="250" y="280" fill="#666666" font-size="10">← RocksDB configuration snapshot</text>
+  </g>
+
+  <!-- Legend -->
+  <rect x="30" y="305" width="660" height="24" rx="4" fill="#2d2d2d" opacity="0.5"/>
+  <circle cx="60" cy="317" r="4" fill="#228833"/>
+  <text x="70" y="321" fill="#555555" font-size="9" font-family="'Segoe UI', system-ui, sans-serif">Data files (SST)</text>
+  <circle cx="200" cy="317" r="4" fill="#cc7700"/>
+  <text x="210" y="321" fill="#555555" font-size="9" font-family="'Segoe UI', system-ui, sans-serif">Recently flushed</text>
+  <circle cx="340" cy="317" r="4" fill="#0077bb"/>
+  <text x="350" y="321" fill="#555555" font-size="9" font-family="'Segoe UI', system-ui, sans-serif">Metadata</text>
+  <circle cx="440" cy="317" r="4" fill="#cc2244"/>
+  <text x="450" y="321" fill="#555555" font-size="9" font-family="'Segoe UI', system-ui, sans-serif">Configuration</text>
+  <text x="570" y="321" fill="#888888" font-size="9" font-family="'Segoe UI', system-ui, sans-serif">SSTs are immutable once written</text>
+</svg>
